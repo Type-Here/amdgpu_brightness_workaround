@@ -2,6 +2,8 @@
 From [ArchWiki](https://wiki.archlinux.org/title/backlight#Backlight_is_always_at_full_brightness_after_a_reboot_with_amdgpu_driver) for source and codefix.  
 This repo provides only a nicer and semiautomatic implementation.
 
+This code *should* work on any Linux machine presenting the issue with AMDGPU Driver in use.
+
 ### Fix 1
 Why?
 >Due to a bug introduced recently in the amdgpu driver, the backlight's actual_brightness value is reported as a 16-bit integer, which is outside the 8-bit range specified in max_brightness. 
