@@ -123,7 +123,7 @@ launch_first(){
 		#From 16 bit to # 8 bit brightness value
 		BRIGHTNESS_FILE="${SYSTEMD_BACKLIGHT_FILE}"
 		BRIGHTNESS="\$(cat "\${BRIGHTNESS_FILE}" )"
-		BRIGHTNESS=\$(($BRIGHTNESS*255/65535))
+		BRIGHTNESS=\$((\$BRIGHTNESS*255/65535))
 		BRIGHTNESS=\${BRIGHTNESS/.*} # truncating to int, just in case
 		echo "\$BRIGHTNESS" > "\${BRIGHTNESS_FILE}"
 
@@ -278,14 +278,14 @@ launch_second(){
 
 echo -e "\n -- | WELCOME | -- \n"
 
-IS_AMDGPU="$(lspci -v | grep -A 10 -i vga | grep -o AMD)"
-IS_AMGPU_DRIVER="$(lspci -v | grep -A 10 -i vga | grep -o amdgpu | head -n 1)"
+IS_AMDGPU="$(sudo lspci -v | grep -A 10 -i vga | grep -o AMD)"
+IS_AMGPU_DRIVER="$(sudo lspci -v | grep -A 30 -i vga | grep -o amdgpu | head -n 1)"
 
 echo "Checking for requirements... "
 # Look for AMD GPU
 if [[ $IS_AMDGPU != 'AMD' ]]; then
 	echo "ERROR: No AMD Gpu Found. VGA Controllers Showed to Check. For more info use lscpi or others: "
-	lspci -v | grep -A 10 -i vga ;
+	lspci -v | grep -A 30 -i vga ;
 	echo -e "\n\n Exiting..."
 
 	exit 1;
@@ -297,7 +297,7 @@ fi
 
 if [[ $IS_AMGPU_DRIVER != 'amdgpu' ]]; then
 	echo "ERROR: AMD Gpu Found but amdgpu driver is not in use. Extract of lspci output here:"
-	lspci -v | grep -A 10 -i vga ;
+	lspci -v | grep -A 30 -i vga ;
 	echo -e "\n\n Exiting..."
 
 	exit 1;
